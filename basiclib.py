@@ -87,3 +87,11 @@ def TextRawDataList2TextFile(filename:str,data:list):
     with open(f"{filename}.txt","w",encoding="utf8") as f1:
         for i in data:
             f1.write(f"{i}\n")
+
+def EscapeSequence():
+    # Pythonのprint()でのエスケープシーケンスを確認する関数
+    for i in range(10):
+        for j in range(10):
+            v = i * 10 + j
+            print("\033[{}m{}\033[0m ".format(str(v), str(v).zfill(3)), end="")
+        print()
