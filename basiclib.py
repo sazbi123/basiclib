@@ -80,3 +80,10 @@ def charcode_to_str(char_code:list,little_or_big:int)->str:
             return_str+=chr(char_code[i])
     
     return return_str
+
+def TextRawDataList2TextFile(filename:str,data:list):
+    # エクスポートしたrawデータの形式でファイルに書き込む関数
+    # リストの要素はタブ文字で区切られる必要がある
+    with open(f"{filename}.txt","w",encoding="utf8") as f1:
+        for i in data:
+            f1.write(f"{i}\n")
