@@ -95,3 +95,13 @@ def EscapeSequence():
             v = i * 10 + j
             print("\033[{}m{}\033[0m ".format(str(v), str(v).zfill(3)), end="")
         print()
+
+def GetColumn(data:list,index:int,sep:str):
+    # 指定した区切り文字で区切り，指定した列のインデックス番号を返す関数
+    # 改行文字は無視
+    return_data=[]
+
+    for i in data:
+        return_data.append(i.replace("\n","").split(sep)[index])
+    
+    return return_data
