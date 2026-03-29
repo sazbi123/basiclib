@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+
 def get_data_with_offset(data_list:list,offset:int,size:int)->list:
     # バイトごとに分けられたデータに対してオフセットと取得するデータを指定して返す関数
     return data_list[offset:offset+size]
@@ -96,7 +98,7 @@ def EscapeSequence():
             print("\033[{}m{}\033[0m ".format(str(v), str(v).zfill(3)), end="")
         print()
 
-def GetColumn(data:list,index:int,sep:str):
+def GetColumn(data:list,index:int,sep:str)->list:
     # 指定した区切り文字で区切り，指定した列のインデックス番号を返す関数
     # 改行文字は無視
     return_data=[]
@@ -106,5 +108,24 @@ def GetColumn(data:list,index:int,sep:str):
     
     return return_data
 
-def ElementStr2Float(data:list):
+def ElementStr2Float(data:list)->list:
     return [float(i) for i in data]
+
+def TextRawDataSaveImg(file_name:str,text_raw_data:list,save_index:list):
+    # グラフを画像データで保存する関数
+    # file_nameは拡張子を省略しない
+    # text_raw_dataは前処理必要ない
+    # 区切り文字がタブ文字前提になっている
+    column_num=len(text_raw_data[0].split("\t"))
+    x=ElementStr2Float(GetColumn(text_raw_data,0,"\t")[1:])
+
+    for i in range(column_num-1):
+        if len(save_index)==0:
+            y=ElementStr2Float(GetColumn(text_raw_data,i+1,"\t")[1:])
+            plt.plot(x, y)
+        elif i+1 in save_index:
+            y=ElementStr2Float(GetColumn(text_raw_data,i+1,"\t")[1:])
+            plt.plot(x, y)
+    
+    plt.grid()
+    plt.savefig(file_name)
