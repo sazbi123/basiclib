@@ -105,3 +105,6 @@ def GetColumn(data:list,index:int,sep:str):
         return_data.append(i.replace("\n","").split(sep)[index])
     
     return return_data
+
+def ElementStr2Float(data:list):
+    return [float(i) for i in data]
