@@ -140,13 +140,20 @@ def TextRawDataViewImg(text_raw_data:list,save_index:list):
     column_num=len(text_raw_data[0].split("\t"))
     x=ElementStr2Float(GetColumn(text_raw_data,0,"\t")[1:])
 
-    for i in range(column_num-1):
-        if len(save_index)==0:
+    if len(save_index)==0:
+        for i in range(column_num-1):
             y=ElementStr2Float(GetColumn(text_raw_data,i+1,"\t")[1:])
-            plt.plot(x, y)
-        elif i+1 in save_index:
-            y=ElementStr2Float(GetColumn(text_raw_data,i+1,"\t")[1:])
-            plt.plot(x, y)
+            plt.plot(x,y)
+        
+        plt.legend(text_raw_data[0].replace("\n","").split("\t")[1:])
+    else:
+        for i in range(len(save_index)):
+            for j in range(column_num-1):
+                if save_index[i]==GetColumn(text_raw_data,j+1,"\t")[0]:
+                    y=ElementStr2Float(GetColumn(text_raw_data,j+1,"\t")[1:])
+                    plt.plot(x,y)
+        
+        plt.legend(save_index)
     
     plt.grid()
     plt.show()
