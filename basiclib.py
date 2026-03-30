@@ -112,6 +112,7 @@ def ElementStr2Float(data:list)->list:
     return [float(i) for i in data]
 
 def TextRawDataSaveImg(file_name:str,text_raw_data:list,save_index:list):
+    # TextRawDataViewImgを使っているときはこれを使わない
     # グラフを画像データで保存する関数
     # file_nameは拡張子を省略しない
     # text_raw_dataは前処理必要ない
@@ -131,6 +132,7 @@ def TextRawDataSaveImg(file_name:str,text_raw_data:list,save_index:list):
     plt.savefig(file_name)
 
 def TextRawDataViewImg(text_raw_data:list,save_index:list):
+    # TextRawDataSaveImgを使っているときはこれを使わない
     # グラフをウィンドウに描画する関数
     # file_nameは拡張子を省略しない
     # text_raw_dataは前処理必要ない
