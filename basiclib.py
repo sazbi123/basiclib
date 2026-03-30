@@ -83,13 +83,6 @@ def charcode_to_str(char_code:list,little_or_big:int)->str:
     
     return return_str
 
-def TextRawDataList2TextFile(filename:str,data:list):
-    # エクスポートしたrawデータの形式でファイルに書き込む関数
-    # リストの要素はタブ文字で区切られる必要がある
-    with open(f"{filename}.txt","w",encoding="utf8") as f1:
-        for i in data:
-            f1.write(f"{i}\n")
-
 def EscapeSequence():
     # Pythonのprint()でのエスケープシーケンスを確認する関数
     for i in range(10):
@@ -97,6 +90,13 @@ def EscapeSequence():
             v = i * 10 + j
             print("\033[{}m{}\033[0m ".format(str(v), str(v).zfill(3)), end="")
         print()
+
+def TextRawDataList2TextFile(filename:str,data:list):
+    # エクスポートしたrawデータの形式でファイルに書き込む関数
+    # リストの要素はタブ文字で区切られる必要がある
+    with open(f"{filename}.txt","w",encoding="utf8") as f1:
+        for i in data:
+            f1.write(f"{i}\n")
 
 def GetColumn(data:list,index:int,sep:str)->list:
     # 指定した区切り文字で区切り，指定した列のインデックス番号を返す関数
@@ -129,3 +129,22 @@ def TextRawDataSaveImg(file_name:str,text_raw_data:list,save_index:list):
     
     plt.grid()
     plt.savefig(file_name)
+
+def TextRawDataViewImg(text_raw_data:list,save_index:list):
+    # グラフをウィンドウに描画する関数
+    # file_nameは拡張子を省略しない
+    # text_raw_dataは前処理必要ない
+    # 区切り文字がタブ文字前提になっている
+    column_num=len(text_raw_data[0].split("\t"))
+    x=ElementStr2Float(GetColumn(text_raw_data,0,"\t")[1:])
+
+    for i in range(column_num-1):
+        if len(save_index)==0:
+            y=ElementStr2Float(GetColumn(text_raw_data,i+1,"\t")[1:])
+            plt.plot(x, y)
+        elif i+1 in save_index:
+            y=ElementStr2Float(GetColumn(text_raw_data,i+1,"\t")[1:])
+            plt.plot(x, y)
+    
+    plt.grid()
+    plt.show()
